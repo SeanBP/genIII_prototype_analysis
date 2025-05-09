@@ -1,0 +1,57 @@
+GenIII Prototype Analysis
+
+DATA PIPELINE:
+
+GeometryDataFrame.ipynb
+- Outputs a "Geometry.pkl" file containing the channel mapping information
+for the real prototype.
+
+Pedestal_Analysis.ipynb
+- Use the raw txt Janus output from a PTRG run "PTRG_list.txt" as input.
+- Recieve a "PTRG.pkl" file, containing a list of pedestal means and stds for 
+all channels.
+
+HGLG-Ratio.ipynb
+- Use the raw txt Janus output from a beam or cosmic run "Beam_list.txt" as input.
+- Recieve a "HGLG.pkl" file, containing a list of HG/LG ratios for all channels.
+
+Cosmic_analysis.ipynb
+- Use the raw txt Janus output from a beam or cosmic run "Cosmic_list.txt" and the 
+"PTRG.pkl" file as input. Ensure "PTRG.pkl" comes from a run with the same gain and 
+pedestal settings.
+- Recieve "MIP.pkl" file, containing a list of MIP values for all channels.
+
+Apply_Calibrations.ipynb
+- Use the event built ROOT file from a beam run "Beam_data.root", "Geometry.pkl", "PTRG.pkl", 
+"HGLG.pkl", and "MIP.pkl" files. Ensure all files come from runs with the same gain 
+and pedestal settings.
+- Recieve "Beam_Calibrated.pkl" file, containing MIP calibrated and pedestal subtracted/
+supressed events.
+
+
+SIMULATION PIPELINE:
+
+Sim_Muon_Analysis.ipynb
+- Use a simulated "Muon.root" file as input.
+- Determines the MIP value for a simulated detector.
+
+Sim_Geometry.ipynb
+- Use a simulated "Beam.root" file as input.
+- Outputs "Sim_Geometry.pkl" file as output.
+
+SimToPkl.ipynb
+- Use a simulated "Beam.root" file, MIP value, and "Sim_Geometry.pkl" file as input.
+- Outputs a "Sim_Beam.pkl" file as output.
+
+
+ANALYSIS:
+
+Beam_Analysis.ipynb
+- Uses "Sim_Beam.pkl" and "Beam_Calibrated.pkl" files as input.
+
+Raw_Spectra_Analysis.ipynb
+- Use the raw txt Janus output from a beam or cosmic run "Beam_list.txt" as input
+
+PrototypeToVIRTUE.ipynb
+- Use "Sim_Beam.pkl" or "Beam_Calibrated.pkl" file as input.
+- Outputs "ZDCPrototype.json" file, which can be imported into VIRTUE for animating.
